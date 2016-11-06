@@ -1,6 +1,7 @@
 Autoloot for EasyUO
 ```
-set %loot DCI_POF_SJG_CUD_IJG_HSF_RVH_FZH_NZH_UJG_FWL_GEJ_FHJ
+set %loot POF_LNK_RWF_VVF_EVF_UVF_GVF_HVF_WZF_AVF
+set %containers UMF_KIF_HKF_CUD_TMF_ZTD_VMF_CKF_JIF_KUD_KKF_ZJF_WMF_JKF
 set %goldContainer LZZHMMD
 
 sub loot
@@ -46,6 +47,22 @@ if #findcnt >= 1
     exevent drag #findid #findstack
     exevent dropc %goldContainer
     wait 35
+   }
+   finditem %containers C_ , %body
+   if #findcnt >= 1
+   {
+    set %container #findid
+    set #lobjectid %container
+    event macro 17 0
+    wait 1
+    wait 10
+    finditem %loot C_ , %container
+    if #findcnt >= 1
+    {
+     exevent drag #findid #findstack
+     exevent dropc %goldContainer
+     wait 35
+    }
    }
   }
  until #findcnt = 0 || %lootOverTime < #scnt
